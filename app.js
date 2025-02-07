@@ -1,10 +1,8 @@
-/** @jsxImportSource https://esm.sh/react@18.2.0 */
 import { Calendar, Heart, Image, Mail, Music } from "https://esm.sh/lucide-react@latest";
 import { nanoid } from "https://esm.sh/nanoid@4.0.0";
 import { createRoot } from "https://esm.sh/react-dom@18.2.0/client";
 import React, { useEffect, useRef, useState } from "https://esm.sh/react@18.2.0";
 
-// Enhanced Templates with better categorization
 const LOVE_TEMPLATES = [
   {
     id: "romantic-classic",
@@ -28,7 +26,6 @@ const LOVE_TEMPLATES = [
     features: ["Memory Wall", "Love Journal", "Classic Design", "Photo Album"],
   },
 ];
-// Utility function to convert file to base64
 const fileToBase64 = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -37,7 +34,6 @@ const fileToBase64 = (file: File): Promise<string> => {
     reader.onerror = (error) => reject(error);
   });
 };
-// Enhanced Floating Hearts Animation
 const FloatingHearts = () => {
   const [hearts, setHearts] = useState([]);
 
@@ -81,7 +77,6 @@ const FloatingHearts = () => {
   );
 };
 
-// Sample Preview Component
 const SamplePreview = () => {
   const [showLetter, setShowLetter] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -179,7 +174,6 @@ const extractYoutubeThumbnail = (url: string) => {
     return null;
   }
 };
-// Main App Component
 function App() {
   const [view, setView] = useState("home");
   const [selectedTemplate, setSelectedTemplate] = useState(null);
@@ -265,11 +259,10 @@ function App() {
       console.error("Error creating love story:", error);
       alert("Failed to create your love story. Please try again.");
     } finally {
-      setLoading(false); // Hide loading indicator
+      setLoading(false);
     }
   };
 
-  // Render Home View with enhanced landing page
   const renderHomeView = () => (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-5xl font-bold text-center text-pink-800 mb-6">
@@ -285,7 +278,6 @@ function App() {
           Choose Any Theme to Create! 🎉
         </h2>
       </div>
-
       <div className="grid md:grid-cols-3 gap-8 mb-12">
         {LOVE_TEMPLATES.map(template => (
           <div
@@ -319,7 +311,6 @@ function App() {
       <FeedbackSection />
     </div>
   );
-  // Render Create View
   const renderCreateView = () => (
     <div className="container mx-auto px-4 py-8">
       <FloatingHearts />
@@ -411,7 +402,6 @@ function App() {
     </div>
   );
 
-  // Render Success View
   const renderSuccessView = () => (
     <div className="container mx-auto px-4 py-8 text-center">
       <h2 className="text-4xl font-bold text-pink-800 mb-6">
@@ -454,19 +444,16 @@ function App() {
   );
 }
 
-// Client-side rendering
 function client() {
   createRoot(document.getElementById("root")).render(<App />);
 }
 if (typeof document !== "undefined") { client(); }
 
-// Server response handling different routes
 export default async function server(request: Request): Promise<Response> {
   const { sqlite } = await import("https://esm.town/v/stevekrouse/sqlite");
   const KEY = new URL(import.meta.url).pathname.split("/").at(-1);
   const SCHEMA_VERSION = 3;
 
-  // Initialize Love Templates Table
   await sqlite.execute(`
     CREATE TABLE IF NOT EXISTS ${KEY}_love_templates_${SCHEMA_VERSION} (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -484,7 +471,6 @@ export default async function server(request: Request): Promise<Response> {
 
   const url = new URL(request.url);
 
-  // API: Create Love Template
   if (url.pathname === "/api/love-template" && request.method === "POST") {
     try {
       const payload = await request.json();
@@ -527,7 +513,6 @@ export default async function server(request: Request): Promise<Response> {
     }
   }
 
-  // API: Get Love Template
   if (url.pathname.startsWith("/love/")) {
     const shareableId = url.pathname.split("/").pop();
 
@@ -677,12 +662,11 @@ export default async function server(request: Request): Promise<Response> {
     }
   }
 
-  // Default homepage
   return new Response(
     `
     <html>
       <head>
-        <title>Valentine -Rose Day</title>
+        <title>Love Express</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdn.tailwindcss.com"></script>
         <style>
@@ -696,7 +680,8 @@ export default async function server(request: Request): Promise<Response> {
             overflow-x: hidden;
           }
         </style>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🌹</text></svg>">
+         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🌹</text></svg>">
+  </head>
       </head>
       <body>
         <div id="root"></div>
