@@ -1,3 +1,4 @@
+/** @jsxImportSource https://esm.sh/react@18.2.0 */
 import { Calendar, Heart, Image, Mail, Music } from "https://esm.sh/lucide-react@latest";
 import { nanoid } from "https://esm.sh/nanoid@4.0.0";
 import { createRoot } from "https://esm.sh/react-dom@18.2.0/client";
@@ -146,7 +147,6 @@ const SamplePreview = () => {
   );
 };
 
-// Feedback Form Component
 const FeedbackSection = () => (
   <div className="bg-white/80 rounded-xl shadow-lg p-6 text-center mt-12">
     <h2 className="text-3xl font-bold text-pink-700 mb-4">Share Your Love 💌</h2>
@@ -259,7 +259,7 @@ function App() {
       console.error("Error creating love story:", error);
       alert("Failed to create your love story. Please try again.");
     } finally {
-      setLoading(false);
+      setLoading(false); // Hide loading indicator
     }
   };
 
@@ -278,6 +278,7 @@ function App() {
           Choose Any Theme to Create! 🎉
         </h2>
       </div>
+
       <div className="grid md:grid-cols-3 gap-8 mb-12">
         {LOVE_TEMPLATES.map(template => (
           <div
@@ -311,6 +312,7 @@ function App() {
       <FeedbackSection />
     </div>
   );
+  // Render Create View
   const renderCreateView = () => (
     <div className="container mx-auto px-4 py-8">
       <FloatingHearts />
@@ -471,6 +473,7 @@ export default async function server(request: Request): Promise<Response> {
 
   const url = new URL(request.url);
 
+  // API: Create Love Template
   if (url.pathname === "/api/love-template" && request.method === "POST") {
     try {
       const payload = await request.json();
@@ -666,7 +669,7 @@ export default async function server(request: Request): Promise<Response> {
     `
     <html>
       <head>
-        <title>Love Express</title>
+        <title>Valentine -Rose Day</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdn.tailwindcss.com"></script>
         <style>
@@ -680,8 +683,7 @@ export default async function server(request: Request): Promise<Response> {
             overflow-x: hidden;
           }
         </style>
-         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🌹</text></svg>">
-  </head>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🌹</text></svg>">
       </head>
       <body>
         <div id="root"></div>
